@@ -28,7 +28,7 @@ public class RequestForwarderTest {
 	@Test
 	public void accountRouteTest() {
 		Mockito.when(req.getRequestURI()).thenReturn("/ERS/newAccount.page");
-		assertEquals("newAccount.page", rf.routes(req));
+		assertEquals("/ERS/newAccount.page", rf.routes(req));
 	}
 	
 	@Test
