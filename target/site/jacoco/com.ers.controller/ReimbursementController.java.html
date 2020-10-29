@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReimbursementController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ERS</a> &gt; <a href="index.source.html" class="el_package">com.ers.controller</a> &gt; <span class="el_source">ReimbursementController.java</span></div><h1>ReimbursementController.java</h1><pre class="source lang-java linenums">package com.ers.controller;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.ers.model.Reimbursement;
+import com.ers.model.ReimbursementType;
+import com.ers.model.User;
+import com.ers.service.ReimbursementService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class ReimbursementController {
+
+	private ReimbursementService rs;
+
+	public ReimbursementController() {
+<span class="nc" id="L23">		this(new ReimbursementService());</span>
+<span class="nc" id="L24">	}</span>
+
+<span class="nc" id="L26">	public ReimbursementController(ReimbursementService rs) {</span>
+<span class="nc" id="L27">		this.rs = rs;</span>
+<span class="nc" id="L28">	}</span>
+
+	public void createRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+<span class="nc" id="L31">		Reimbursement r = new Reimbursement();</span>
+<span class="nc" id="L32">		r.setAuthorId(((User)req.getSession().getAttribute(&quot;user&quot;)).getId());</span>
+<span class="nc" id="L33">		r.setAmount(BigDecimal.valueOf(Double.parseDouble(req.getParameter(&quot;amount&quot;))));</span>
+<span class="nc" id="L34">		r.setSubmitted(new Timestamp(System.currentTimeMillis()));</span>
+<span class="nc" id="L35">		r.setDescription(req.getParameter(&quot;description&quot;));</span>
+<span class="nc" id="L36">		r.setTypeId(new ReimbursementType(Integer.parseInt(req.getParameter(&quot;type&quot;))));</span>
+		
+<span class="nc" id="L38">		rs.create(r);</span>
+<span class="nc" id="L39">		resp.sendRedirect(&quot;employee.page&quot;);</span>
+<span class="nc" id="L40">	}</span>
+
+	public void sendAllReimbursements(HttpServletRequest req, HttpServletResponse resp) throws IOException {		
+<span class="nc" id="L43">		resp.setContentType(&quot;text/json&quot;);</span>
+<span class="nc" id="L44">		User u = (User) req.getSession(false).getAttribute(&quot;user&quot;);</span>
+		
+<span class="nc" id="L46">		List&lt;Reimbursement&gt; reimbs = rs.findAll();</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">		if (u.getRoleId().getId() == 2) {</span>
+<span class="nc" id="L48">			reimbs = reimbs.stream()</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">							.filter(r -&gt; r.getAuthorId() == u.getId())</span>
+<span class="nc" id="L50">							.collect(Collectors.toList());</span>
+		}
+		
+		try {
+<span class="nc" id="L54">			resp.getWriter().println(new ObjectMapper().writeValueAsString(reimbs));</span>
+<span class="nc" id="L55">		} catch (IOException e) {</span>
+<span class="nc" id="L56">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L58">	}</span>
+	
+	public void approveDeny(HttpServletRequest req, HttpServletResponse resp) {
+<span class="nc" id="L61">		resp.setContentType(&quot;text/json&quot;);</span>
+		try {
+<span class="nc" id="L63">			Reimbursement r = new ObjectMapper().readValue(req.getInputStream(), Reimbursement.class);</span>
+<span class="nc" id="L64">			r.setResolved(new Timestamp(System.currentTimeMillis()));</span>
+<span class="nc" id="L65">			rs.approveDeny(r);</span>
+<span class="nc" id="L66">			List&lt;Reimbursement&gt; reimbs = rs.findAll();</span>
+<span class="nc" id="L67">			resp.getWriter().println(new ObjectMapper().writeValueAsString(reimbs));</span>
+<span class="nc" id="L68">		} catch (IOException e) {</span>
+<span class="nc" id="L69">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L71">	}</span>
+	
+//	public void update(HttpServletRequest req) {
+//		try {
+////			Object r = new ObjectMapper().readValue(req.getInputStream(), Object.class);
+//			Reimbursement r = new ObjectMapper().readValue(req.getInputStream(), Reimbursement.class);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+	public void deleteReimbursement(HttpServletRequest req) {
+		try {
+<span class="nc" id="L84">			Reimbursement r = new ObjectMapper().readValue(req.getInputStream(), Reimbursement.class);</span>
+<span class="nc" id="L85">			rs.delete(r.getId());</span>
+<span class="nc" id="L86">		} catch (IOException e) {</span>
+<span class="nc" id="L87">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L89">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

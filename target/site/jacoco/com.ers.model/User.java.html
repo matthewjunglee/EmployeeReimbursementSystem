@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ERS</a> &gt; <a href="index.source.html" class="el_package">com.ers.model</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.ers.model;
+
+import java.io.Serializable;
+
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	private int id;
+	private String username;
+	private String password;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private UserRole roleId;
+
+<span class="fc" id="L17">	public User() {}</span>
+
+<span class="fc" id="L19">	public User(int id, String username, String password, String firstName,</span>
+				String lastName, String email, UserRole roleId) {
+<span class="fc" id="L21">		this.id = id;</span>
+<span class="fc" id="L22">		this.username = username;</span>
+<span class="fc" id="L23">		this.password = password;</span>
+<span class="fc" id="L24">		this.firstName = firstName;</span>
+<span class="fc" id="L25">		this.lastName = lastName;</span>
+<span class="fc" id="L26">		this.email = email;</span>
+<span class="fc" id="L27">		this.roleId = roleId;</span>
+<span class="fc" id="L28">	}</span>
+
+	public int getId() {
+<span class="fc" id="L31">		return id;</span>
+	}
+
+	public void setId(int id) {
+<span class="fc" id="L35">		this.id = id;</span>
+<span class="fc" id="L36">	}</span>
+
+	public String getUsername() {
+<span class="fc" id="L39">		return username;</span>
+	}
+
+	public void setUsername(String username) {
+<span class="fc" id="L43">		this.username = username;</span>
+<span class="fc" id="L44">	}</span>
+
+	public String getPassword() {
+<span class="fc" id="L47">		return password;</span>
+	}
+
+	public void setPassword(String password) {
+<span class="fc" id="L51">		this.password = password;</span>
+<span class="fc" id="L52">	}</span>
+
+	public String getFirstName() {
+<span class="fc" id="L55">		return firstName;</span>
+	}
+
+	public void setFirstName(String firstName) {
+<span class="fc" id="L59">		this.firstName = firstName;</span>
+<span class="fc" id="L60">	}</span>
+
+	public String getLastName() {
+<span class="fc" id="L63">		return lastName;</span>
+	}
+
+	public void setLastName(String lastName) {
+<span class="fc" id="L67">		this.lastName = lastName;</span>
+<span class="fc" id="L68">	}</span>
+
+	public String getEmail() {
+<span class="fc" id="L71">		return email;</span>
+	}
+
+	public void setEmail(String email) {
+<span class="fc" id="L75">		this.email = email;</span>
+<span class="fc" id="L76">	}</span>
+
+	public UserRole getRoleId() {
+<span class="fc" id="L79">		return roleId;</span>
+	}
+
+	public void setRoleId(UserRole roleId) {
+<span class="fc" id="L83">		this.roleId = roleId;</span>
+<span class="fc" id="L84">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

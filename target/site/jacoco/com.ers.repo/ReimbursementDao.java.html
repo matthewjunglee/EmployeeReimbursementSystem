@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReimbursementDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ERS</a> &gt; <a href="index.source.html" class="el_package">com.ers.repo</a> &gt; <span class="el_source">ReimbursementDao.java</span></div><h1>ReimbursementDao.java</h1><pre class="source lang-java linenums">package com.ers.repo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ers.model.Reimbursement;
+import com.ers.model.ReimbursementStatus;
+import com.ers.model.ReimbursementType;
+import com.ers.util.ConnectionUtil;
+
+<span class="fc" id="L15">public class ReimbursementDao implements DaoContract&lt;Reimbursement, Integer&gt; {</span>
+
+	@Override
+	public int create(Reimbursement t) {
+<span class="fc" id="L19">		int updated = 0;</span>
+<span class="fc" id="L20">		String sql = &quot;INSERT INTO reimbursement VALUES (DEFAULT, ?, ?, NULL, ?, NULL, ?, NULL, DEFAULT, ?);&quot;;</span>
+
+<span class="fc" id="L22">		try (Connection conn = ConnectionUtil.getInstance().getConnection();</span>
+<span class="fc" id="L23">				PreparedStatement ps = conn.prepareStatement(sql)) {</span>
+<span class="fc" id="L24">			ps.setBigDecimal(1, t.getAmount());</span>
+<span class="fc" id="L25">			ps.setTimestamp(2, t.getSubmitted());</span>
+<span class="fc" id="L26">			ps.setString(3, t.getDescription());</span>
+<span class="fc" id="L27">			ps.setInt(4, t.getAuthorId());</span>
+<span class="fc" id="L28">			ps.setInt(5, t.getTypeId().getId());</span>
+
+<span class="fc" id="L30">			updated = ps.executeUpdate();</span>
+
+<span class="pc bpc" id="L32" title="14 of 16 branches missed.">		} catch (SQLException e) {</span>
+<span class="nc" id="L33">			e.printStackTrace();</span>
+		}
+<span class="fc" id="L35">		return updated;</span>
+	}
+
+	@Override
+	public List&lt;Reimbursement&gt; findAll() {
+<span class="fc" id="L40">		List&lt;Reimbursement&gt; reimbs = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L41">		String sql = &quot;SELECT * FROM get_reimbursements();&quot;;</span>
+
+<span class="fc" id="L43">		try (Connection conn = ConnectionUtil.getInstance().getConnection();</span>
+<span class="fc" id="L44">				PreparedStatement ps = conn.prepareStatement(sql);</span>
+<span class="fc" id="L45">				ResultSet rs = ps.executeQuery()) {</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">			while (rs.next()) {</span>
+<span class="fc" id="L47">				reimbs.add(new Reimbursement(rs.getInt(1), rs.getInt(2), rs.getBigDecimal(3),</span>
+<span class="fc" id="L48">						rs.getTimestamp(4), rs.getTimestamp(5), rs.getString(6), rs.getBytes(7),</span>
+<span class="fc" id="L49">						new ReimbursementStatus(rs.getInt(8)), new ReimbursementType(rs.getInt(9))));</span>
+			}
+<span class="pc bpc" id="L51" title="21 of 24 branches missed.">		} catch (SQLException e) {</span>
+<span class="nc" id="L52">			e.printStackTrace();</span>
+		}
+
+<span class="fc" id="L55">		return reimbs;</span>
+	}
+
+	@Override
+	public Reimbursement findById(Integer i) {
+<span class="fc" id="L60">		return null;</span>
+//		Reimbursement r = new Reimbursement();
+//		String sql = &quot;SELECT * FROM get_reimbursement_by_id(?);&quot;;
+//
+//		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+//				PreparedStatement ps = conn.prepareStatement(sql)) {
+//			ps.setInt(1, i);
+//
+//			ResultSet rs = ps.executeQuery();
+//			while (rs.next()) {
+//				r = new Reimbursement(rs.getInt(1), rs.getInt(2), rs.getBigDecimal(3),
+//						rs.getTimestamp(4), rs.getTimestamp(5), rs.getString(6), rs.getBytes(7),
+//						new ReimbursementStatus(rs.getInt(8)), new ReimbursementType(rs.getInt(9)));
+//			}
+//			rs.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return r;
+	}
+
+//	public List&lt;Reimbursement&gt; findByAuthorId(Integer i) {
+//		List&lt;Reimbursement&gt; reimbs = new ArrayList&lt;&gt;();
+//		String sql = &quot;SELECT * FROM get_reimbursements_by_author_id(?);&quot;;
+//
+//		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+//				PreparedStatement ps = conn.prepareStatement(sql)) {
+//			ps.setInt(1, i);
+//
+//			ResultSet rs = ps.executeQuery();
+//			while (rs.next()) {
+//				reimbs.add(new Reimbursement(rs.getInt(1), rs.getInt(2), rs.getBigDecimal(3),
+//						rs.getTimestamp(4), rs.getTimestamp(5), rs.getString(6), rs.getBytes(7),
+//						new ReimbursementStatus(rs.getInt(8)), new ReimbursementType(rs.getInt(9))));
+//			}
+//			rs.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return reimbs;
+//	}
+
+	@Override
+	public int update(Reimbursement t) {
+<span class="fc" id="L106">		return 0;</span>
+//		int updated = 0;
+//		String sql = &quot;UPDATE reimbursement SET amount = ?, description = ?, receipt = ?, type_id = ?&quot;
+//				+ &quot;WHERE id = ?;&quot;;
+//
+//		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+//				PreparedStatement ps = conn.prepareStatement(sql)) {
+//			ps.setBigDecimal(1, t.getAmount());
+//			ps.setString(2, t.getDescription());
+//			ps.setBytes(3, t.getReceipt());
+//			ps.setInt(4, t.getTypeId().getId());
+//			ps.setInt(5, t.getId());
+//
+//			updated = ps.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return updated;
+	}
+
+	@Override
+	public int delete(Integer i) {
+<span class="fc" id="L129">		int updated = 0;</span>
+<span class="fc" id="L130">		String sql = &quot;DELETE FROM reimbursement r WHERE r.id = ?;&quot;;</span>
+
+<span class="fc" id="L132">		try (Connection conn = ConnectionUtil.getInstance().getConnection();</span>
+<span class="fc" id="L133">				PreparedStatement ps = conn.prepareStatement(sql)) {</span>
+<span class="fc" id="L134">			ps.setInt(1, i);</span>
+<span class="fc" id="L135">			updated = ps.executeUpdate();</span>
+<span class="pc bpc" id="L136" title="14 of 16 branches missed.">		} catch (SQLException e) {</span>
+<span class="nc" id="L137">			e.printStackTrace();</span>
+		}
+
+<span class="fc" id="L140">		return updated;</span>
+	}
+	
+	public int approveDeny(Reimbursement r) {
+<span class="fc" id="L144">		int updated = 0;</span>
+<span class="fc" id="L145">		String sql = &quot;UPDATE reimbursement SET status_id = ?, resolved = ? WHERE id = ?;&quot;;</span>
+		
+<span class="fc" id="L147">		try (Connection conn = ConnectionUtil.getInstance().getConnection();</span>
+<span class="fc" id="L148">				PreparedStatement ps = conn.prepareStatement(sql)) {</span>
+<span class="fc" id="L149">			ps.setInt(1, r.getStatusId().getId());</span>
+<span class="fc" id="L150">			ps.setTimestamp(2, r.getResolved());</span>
+<span class="fc" id="L151">			ps.setInt(3, r.getId());</span>
+
+<span class="fc" id="L153">			updated = ps.executeUpdate();</span>
+
+<span class="pc bpc" id="L155" title="14 of 16 branches missed.">		} catch (SQLException e) {</span>
+<span class="nc" id="L156">			e.printStackTrace();</span>
+		}
+		
+<span class="fc" id="L159">		return updated;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

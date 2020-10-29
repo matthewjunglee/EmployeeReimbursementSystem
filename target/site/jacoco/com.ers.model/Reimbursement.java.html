@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Reimbursement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ERS</a> &gt; <a href="index.source.html" class="el_package">com.ers.model</a> &gt; <span class="el_source">Reimbursement.java</span></div><h1>Reimbursement.java</h1><pre class="source lang-java linenums">package com.ers.model;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+
+public class Reimbursement {
+
+	private int id;
+	private int authorId;
+	private BigDecimal amount;
+	private Timestamp submitted;
+	private Timestamp resolved;
+	private String description;
+	private byte[] receipt;
+	private ReimbursementStatus statusId;
+	private ReimbursementType typeId;
+	private String typeString;
+
+	private LocalDate dateSubmitted;
+	private LocalDate dateResolved;
+
+<span class="fc" id="L23">	public Reimbursement() {}</span>
+
+	public Reimbursement(int id, int authorId, BigDecimal amount, Timestamp submitted, Timestamp resolved,
+<span class="fc" id="L26">			String description, byte[] receipt, ReimbursementStatus statusId, ReimbursementType typeId) {</span>
+<span class="fc" id="L27">		this.id = id;</span>
+<span class="fc" id="L28">		this.amount = amount;</span>
+<span class="fc" id="L29">		this.submitted = submitted;</span>
+<span class="fc" id="L30">		this.resolved = resolved;</span>
+<span class="fc" id="L31">		this.description = description;</span>
+<span class="fc" id="L32">		this.receipt = receipt;</span>
+<span class="fc" id="L33">		this.statusId = statusId;</span>
+<span class="fc" id="L34">		this.typeId = typeId;</span>
+<span class="fc" id="L35">		this.authorId = authorId;</span>
+		
+<span class="fc" id="L37">		this.dateSubmitted = this.submitted.toLocalDateTime().toLocalDate();</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">		if (this.resolved != null) {</span>
+<span class="fc" id="L39">			this.dateResolved = this.resolved.toLocalDateTime().toLocalDate();</span>
+		}
+<span class="fc" id="L41">	}</span>
+
+	public int getId() {
+<span class="fc" id="L44">		return id;</span>
+	}
+
+	public void setId(int id) {
+<span class="fc" id="L48">		this.id = id;</span>
+<span class="fc" id="L49">	}</span>
+
+	public BigDecimal getAmount() {
+<span class="fc" id="L52">		return amount;</span>
+	}
+
+	public void setAmount(BigDecimal amount) {
+<span class="fc" id="L56">		this.amount = amount;</span>
+<span class="fc" id="L57">	}</span>
+
+	public Timestamp getSubmitted() {
+<span class="fc" id="L60">		return submitted;</span>
+	}
+
+	public void setSubmitted(Timestamp submitted) {
+<span class="fc" id="L64">		this.submitted = submitted;</span>
+<span class="fc" id="L65">	}</span>
+
+	public Timestamp getResolved() {
+<span class="fc" id="L68">		return resolved;</span>
+	}
+
+	public void setResolved(Timestamp resolved) {
+<span class="fc" id="L72">		this.resolved = resolved;</span>
+<span class="fc" id="L73">	}</span>
+
+	public String getDescription() {
+<span class="fc" id="L76">		return description;</span>
+	}
+
+	public void setDescription(String description) {
+<span class="fc" id="L80">		this.description = description;</span>
+<span class="fc" id="L81">	}</span>
+
+	public byte[] getReceipt() {
+<span class="fc" id="L84">		return receipt;</span>
+	}
+
+	public void setReceipt(byte[] receipt) {
+<span class="fc" id="L88">		this.receipt = receipt;</span>
+<span class="fc" id="L89">	}</span>
+
+	public int getAuthorId() {
+<span class="fc" id="L92">		return authorId;</span>
+	}
+
+	public void setAuthorId(int authorId) {
+<span class="fc" id="L96">		this.authorId = authorId;</span>
+<span class="fc" id="L97">	}</span>
+
+	public ReimbursementStatus getStatusId() {
+<span class="fc" id="L100">		return statusId;</span>
+	}
+
+	public void setStatusId(ReimbursementStatus statusId) {
+<span class="fc" id="L104">		this.statusId = statusId;</span>
+<span class="fc" id="L105">	}</span>
+
+	public ReimbursementType getTypeId() {
+<span class="fc" id="L108">		return typeId;</span>
+	}
+
+	public void setTypeId(ReimbursementType typeId) {
+<span class="fc" id="L112">		this.typeId = typeId;</span>
+<span class="fc" id="L113">	}</span>
+
+	public LocalDate getDateSubmitted() {
+<span class="fc" id="L116">		return dateSubmitted;</span>
+	}
+
+	public void setDateSubmitted(LocalDate dateSubmitted) {
+<span class="fc" id="L120">		this.dateSubmitted = dateSubmitted;</span>
+<span class="fc" id="L121">	}</span>
+
+	public LocalDate getDateResolved() {
+<span class="fc" id="L124">		return dateResolved;</span>
+	}
+
+	public void setDateResolved(LocalDate dateResolved) {
+<span class="fc" id="L128">		this.dateResolved = dateResolved;</span>
+<span class="fc" id="L129">	}</span>
+	
+	public String getTypeString() {
+<span class="fc" id="L132">		return typeString;</span>
+	}
+
+	public void setTypeString(String typeString) {
+<span class="fc" id="L136">		this.typeString = typeString;</span>
+<span class="fc" id="L137">		this.statusId = new ReimbursementStatus(typeString);</span>
+<span class="fc" id="L138">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

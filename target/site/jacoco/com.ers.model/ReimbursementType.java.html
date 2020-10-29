@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReimbursementType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ERS</a> &gt; <a href="index.source.html" class="el_package">com.ers.model</a> &gt; <span class="el_source">ReimbursementType.java</span></div><h1>ReimbursementType.java</h1><pre class="source lang-java linenums">package com.ers.model;
+
+public class ReimbursementType {
+
+	private int id;
+	private String type;
+
+	public ReimbursementType(int id) {
+<span class="fc" id="L9">		super();</span>
+<span class="fc" id="L10">		this.id = id;</span>
+
+<span class="fc bfc" id="L12" title="All 5 branches covered.">		switch (id) {</span>
+		case 1:
+<span class="fc" id="L14">			type = &quot;LODGING&quot;;</span>
+<span class="fc" id="L15">			break;</span>
+		case 2:
+<span class="fc" id="L17">			type = &quot;TRAVEL&quot;;</span>
+<span class="fc" id="L18">			break;</span>
+		case 3:
+<span class="fc" id="L20">			type = &quot;FOOD&quot;;</span>
+<span class="fc" id="L21">			break;</span>
+		case 4:
+<span class="fc" id="L23">			type = &quot;OTHER&quot;;</span>
+<span class="fc" id="L24">			break;</span>
+		default:
+			break;
+		}
+<span class="fc" id="L28">	}</span>
+
+	public int getId() {
+<span class="fc" id="L31">		return id;</span>
+	}
+
+	public void setId(int id) {
+<span class="fc" id="L35">		this.id = id;</span>
+<span class="fc" id="L36">	}</span>
+
+	public String getType() {
+<span class="fc" id="L39">		return type;</span>
+	}
+
+	public void setType(String type) {
+<span class="fc" id="L43">		this.type = type;</span>
+<span class="fc" id="L44">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
