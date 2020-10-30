@@ -18,11 +18,11 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		switch (req.getRequestURI()) {
-		case "/ERS-0.0.1-SNAPSHOT/login.page":
+		case "/ERS/login.page":
 			req.getSession().invalidate();
 			req.getRequestDispatcher("html/login.html").forward(req, resp);
 			break;
-		case "/ERS-0.0.1-SNAPSHOT/employee.page":
+		case "/ERS/employee.page":
 			if (req.getSession(false) != null &&
 				((User) req.getSession().getAttribute("user")).getRoleId().getId() == 2) {
 				req.getRequestDispatcher("html/employeePortal.html").forward(req, resp);
@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 				resp.sendRedirect("login.page");
 			}
 			break;
-		case "/ERS-0.0.1-SNAPSHOT/manager.page":
+		case "/ERS/manager.page":
 			if (req.getSession(false) != null && 
 				((User) req.getSession(false).getAttribute("user")).getRoleId().getId() == 1) {
 				req.getRequestDispatcher("html/managerPortal.html").forward(req, resp);
@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 				resp.sendRedirect("login.page");
 			}
 			break;
-		case "/ERS-0.0.1-SNAPSHOT/logout.page":
+		case "/ERS/logout.page":
 			req.getSession().invalidate();
 			resp.sendRedirect("login.page");
 			break;
