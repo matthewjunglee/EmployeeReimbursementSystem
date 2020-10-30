@@ -15,7 +15,7 @@ public class RequestForwarder {
 		switch (req.getRequestURI()) {
 		case "/ERS-0.0.1-SNAPSHOT/login.page":
 			return new UserController().loginUser(req);
-		case "/ERS-0.0.1-SNAPSHOT/newAccount.page":
+		case "/ERS-0.0.1-SNAPSHOT/createAccount.page":
 			return new UserController().registerUser(req);
 		default:
 			return "";
