@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.ers.model.Reimbursement;
 import com.ers.model.ReimbursementStatus;
 import com.ers.model.ReimbursementType;
@@ -14,8 +17,12 @@ import com.ers.util.ConnectionUtil;
 
 public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 
+	private static final Logger logger = LogManager.getLogger(ReimbursementDao.class);
+
 	@Override
 	public int create(Reimbursement t) {
+		logger.info("Create request");
+
 		int updated = 0;
 		String sql = "INSERT INTO reimbursement VALUES (DEFAULT, ?, ?, NULL, ?, NULL, ?, NULL, DEFAULT, ?);";
 
@@ -30,7 +37,7 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 			updated = ps.executeUpdate();
 
 		} catch (SQLException e) {
-//			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return updated;
 	}
@@ -49,7 +56,7 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 						new ReimbursementStatus(rs.getInt(9)), new ReimbursementType(rs.getInt(10))));
 			}
 		} catch (SQLException e) {
-//			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 
 		return reimbs;
@@ -126,6 +133,8 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 
 	@Override
 	public int delete(Integer i) {
+		logger.info(String.format("Deleting request - ID: %d", i));
+
 		int updated = 0;
 		String sql = "DELETE FROM reimbursement r WHERE r.id = ?;";
 
@@ -134,13 +143,15 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 			ps.setInt(1, i);
 			updated = ps.executeUpdate();
 		} catch (SQLException e) {
-//			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 
 		return updated;
 	}
 	
 	public int approveDeny(Reimbursement r) {
+		logger.info(String.format("Resolving request: %d", r.getId()));
+
 		int updated = 0;
 		String sql = "UPDATE reimbursement SET status_id = ?, resolved = ?, resolver = ? WHERE id = ?;";
 		
@@ -154,7 +165,7 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 			updated = ps.executeUpdate();
 
 		} catch (SQLException e) {
-//			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		
 		return updated;

@@ -6,13 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.ers.model.User;
 import com.ers.model.UserRole;
 import com.ers.util.ConnectionUtil;
 
 public class UserDao implements DaoContract<User, Integer> {
 
+	private static final Logger logger = LogManager.getLogger(UserDao.class);
+	
 	public User login(String username, String password) {
+		logger.info(String.format("Login - username: %s", username));
+
 		User u = new User();
 		String sql = "SELECT * FROM login(?, ?);";
 		
@@ -33,7 +40,7 @@ public class UserDao implements DaoContract<User, Integer> {
 			rs.close();
 		} catch (SQLException e) {
 			u.setId(0);
-//			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		
 		return u;
@@ -41,6 +48,7 @@ public class UserDao implements DaoContract<User, Integer> {
 	
 	@Override
 	public int create(User t) {
+		logger.info(String.format("Create account - username: %s", t.getUsername()));
 		int userId = 0;
 		String sql1 = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);";
 		String sql2 = "SELECT user_id FROM users WHERE username = ?;";
@@ -62,7 +70,7 @@ public class UserDao implements DaoContract<User, Integer> {
 				userId = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-//			e.printStackTrace();
+			logger.info(String.format("Username: %s already exists", t.getUsername()));
 		}
 		
 		return userId;
