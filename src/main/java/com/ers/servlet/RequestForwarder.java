@@ -12,10 +12,10 @@ import com.ers.controller.UserController;
 public class RequestForwarder {
 	
 	public String routes(HttpServletRequest req) {
-		switch (req.getRequestURI().substring(req.getContextPath().length())) {
-		case "/login.page":
+		switch (req.getRequestURI()) {
+		case "/ERS-0.0.1-SNAPSHOT/login.page":
 			return new UserController().loginUser(req);
-		case "/newAccount.page":
+		case "/ERS-0.0.1-SNAPSHOT/newAccount.page":
 			return new UserController().registerUser(req);
 		default:
 			return "";
@@ -28,17 +28,17 @@ public class RequestForwarder {
 			return;
 		}
 		
-		switch (req.getRequestURI().substring(req.getContextPath().length())) {
-		case "/reimbursements.json":
+		switch (req.getRequestURI()) {
+		case "/ERS-0.0.1-SNAPSHOT/reimbursements.json":
 			new ReimbursementController().sendAllReimbursements(req, resp);
 			break;
-		case "/delete.json":
+		case "/ERS-0.0.1-SNAPSHOT/delete.json":
 			new ReimbursementController().deleteReimbursement(req);
 			break;
-		case "/create.json":
+		case "/ERS-0.0.1-SNAPSHOT/create.json":
 			new ReimbursementController().createRequest(req, resp);
 			break;
-		case "/approveDeny.json":
+		case "/ERS-0.0.1-SNAPSHOT/approveDeny.json":
 			new ReimbursementController().approveDeny(req, resp);
 			break;
 		default:
