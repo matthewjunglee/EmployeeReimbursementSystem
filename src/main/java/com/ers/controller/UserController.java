@@ -1,9 +1,9 @@
 package com.ers.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import com.ers.model.User;
+import com.ers.model.UserRole;
 import com.ers.service.UserService;
 
 public class UserController {
@@ -23,7 +23,8 @@ public class UserController {
 		String password = req.getParameter("password");
 
 		User u = us.login(username, password);
-		if (u.getUsername() != null && u.getUsername().equals(username)) {
+		
+		if (u.getId() != 0) {
 			req.getSession().invalidate();
 			req.getSession().setAttribute("user", u);
 
@@ -33,7 +34,7 @@ public class UserController {
 				return "html/employeePortal.html";
 			}
 		}
-		return "html/login.html";
+		return "";
 	}
 
 	public String registerUser(HttpServletRequest req) {
@@ -43,11 +44,11 @@ public class UserController {
 		u.setFirstName(req.getParameter("firstName"));
 		u.setLastName(req.getParameter("lastName"));
 		u.setEmail(req.getParameter("email"));
-//		u.setRoleId(new UserRole(2));
+		u.setRoleId(new UserRole(2));
 		u.setId(us.create(u));
 		
 		if (u.getId() == 0) {
-			return "html/login.html";
+			return "";
 		}
 		
 		req.getSession().invalidate();

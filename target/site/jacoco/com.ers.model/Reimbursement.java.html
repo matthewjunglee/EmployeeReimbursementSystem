@@ -8,6 +8,7 @@ public class Reimbursement {
 
 	private int id;
 	private int authorId;
+	private int resolverId;
 	private BigDecimal amount;
 	private Timestamp submitted;
 	private Timestamp resolved;
@@ -20,122 +21,131 @@ public class Reimbursement {
 	private LocalDate dateSubmitted;
 	private LocalDate dateResolved;
 
-<span class="fc" id="L23">	public Reimbursement() {}</span>
+<span class="fc" id="L24">	public Reimbursement() {}</span>
 
-	public Reimbursement(int id, int authorId, BigDecimal amount, Timestamp submitted, Timestamp resolved,
-<span class="fc" id="L26">			String description, byte[] receipt, ReimbursementStatus statusId, ReimbursementType typeId) {</span>
-<span class="fc" id="L27">		this.id = id;</span>
-<span class="fc" id="L28">		this.amount = amount;</span>
-<span class="fc" id="L29">		this.submitted = submitted;</span>
-<span class="fc" id="L30">		this.resolved = resolved;</span>
-<span class="fc" id="L31">		this.description = description;</span>
-<span class="fc" id="L32">		this.receipt = receipt;</span>
-<span class="fc" id="L33">		this.statusId = statusId;</span>
-<span class="fc" id="L34">		this.typeId = typeId;</span>
-<span class="fc" id="L35">		this.authorId = authorId;</span>
+	public Reimbursement(int id, int authorId, int resolverId, BigDecimal amount, Timestamp submitted, Timestamp resolved,
+<span class="fc" id="L27">			String description, byte[] receipt, ReimbursementStatus statusId, ReimbursementType typeId) {</span>
+<span class="fc" id="L28">		this.id = id;</span>
+<span class="fc" id="L29">		this.authorId = authorId;</span>
+<span class="fc" id="L30">		this.resolverId = resolverId;</span>
+<span class="fc" id="L31">		this.amount = amount;</span>
+<span class="fc" id="L32">		this.submitted = submitted;</span>
+<span class="fc" id="L33">		this.resolved = resolved;</span>
+<span class="fc" id="L34">		this.description = description;</span>
+<span class="fc" id="L35">		this.receipt = receipt;</span>
+<span class="fc" id="L36">		this.statusId = statusId;</span>
+<span class="fc" id="L37">		this.typeId = typeId;</span>
 		
-<span class="fc" id="L37">		this.dateSubmitted = this.submitted.toLocalDateTime().toLocalDate();</span>
-<span class="fc bfc" id="L38" title="All 2 branches covered.">		if (this.resolved != null) {</span>
-<span class="fc" id="L39">			this.dateResolved = this.resolved.toLocalDateTime().toLocalDate();</span>
+<span class="fc" id="L39">		this.dateSubmitted = this.submitted.toLocalDateTime().toLocalDate();</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">		if (this.resolved != null) {</span>
+<span class="fc" id="L41">			this.dateResolved = this.resolved.toLocalDateTime().toLocalDate();</span>
 		}
-<span class="fc" id="L41">	}</span>
+<span class="fc" id="L43">	}</span>
 
 	public int getId() {
-<span class="fc" id="L44">		return id;</span>
+<span class="fc" id="L46">		return id;</span>
 	}
 
 	public void setId(int id) {
-<span class="fc" id="L48">		this.id = id;</span>
-<span class="fc" id="L49">	}</span>
-
-	public BigDecimal getAmount() {
-<span class="fc" id="L52">		return amount;</span>
-	}
-
-	public void setAmount(BigDecimal amount) {
-<span class="fc" id="L56">		this.amount = amount;</span>
-<span class="fc" id="L57">	}</span>
-
-	public Timestamp getSubmitted() {
-<span class="fc" id="L60">		return submitted;</span>
-	}
-
-	public void setSubmitted(Timestamp submitted) {
-<span class="fc" id="L64">		this.submitted = submitted;</span>
-<span class="fc" id="L65">	}</span>
-
-	public Timestamp getResolved() {
-<span class="fc" id="L68">		return resolved;</span>
-	}
-
-	public void setResolved(Timestamp resolved) {
-<span class="fc" id="L72">		this.resolved = resolved;</span>
-<span class="fc" id="L73">	}</span>
-
-	public String getDescription() {
-<span class="fc" id="L76">		return description;</span>
-	}
-
-	public void setDescription(String description) {
-<span class="fc" id="L80">		this.description = description;</span>
-<span class="fc" id="L81">	}</span>
-
-	public byte[] getReceipt() {
-<span class="fc" id="L84">		return receipt;</span>
-	}
-
-	public void setReceipt(byte[] receipt) {
-<span class="fc" id="L88">		this.receipt = receipt;</span>
-<span class="fc" id="L89">	}</span>
-
+<span class="fc" id="L50">		this.id = id;</span>
+<span class="fc" id="L51">	}</span>
+	
 	public int getAuthorId() {
-<span class="fc" id="L92">		return authorId;</span>
+<span class="fc" id="L54">		return authorId;</span>
 	}
 
 	public void setAuthorId(int authorId) {
-<span class="fc" id="L96">		this.authorId = authorId;</span>
-<span class="fc" id="L97">	}</span>
+<span class="fc" id="L58">		this.authorId = authorId;</span>
+<span class="fc" id="L59">	}</span>
+
+	public int getResolverId() {
+<span class="fc" id="L62">		return resolverId;</span>
+	}
+
+	public void setResolverId(int resolverId) {
+<span class="fc" id="L66">		this.resolverId = resolverId;</span>
+<span class="fc" id="L67">	}</span>
+
+	public BigDecimal getAmount() {
+<span class="fc" id="L70">		return amount;</span>
+	}
+
+	public void setAmount(BigDecimal amount) {
+<span class="fc" id="L74">		this.amount = amount;</span>
+<span class="fc" id="L75">	}</span>
+
+	public Timestamp getSubmitted() {
+<span class="fc" id="L78">		return submitted;</span>
+	}
+
+	public void setSubmitted(Timestamp submitted) {
+<span class="fc" id="L82">		this.submitted = submitted;</span>
+<span class="fc" id="L83">	}</span>
+
+	public Timestamp getResolved() {
+<span class="fc" id="L86">		return resolved;</span>
+	}
+
+	public void setResolved(Timestamp resolved) {
+<span class="fc" id="L90">		this.resolved = resolved;</span>
+<span class="fc" id="L91">	}</span>
+
+	public String getDescription() {
+<span class="fc" id="L94">		return description;</span>
+	}
+
+	public void setDescription(String description) {
+<span class="fc" id="L98">		this.description = description;</span>
+<span class="fc" id="L99">	}</span>
+
+	public byte[] getReceipt() {
+<span class="fc" id="L102">		return receipt;</span>
+	}
+
+	public void setReceipt(byte[] receipt) {
+<span class="fc" id="L106">		this.receipt = receipt;</span>
+<span class="fc" id="L107">	}</span>
 
 	public ReimbursementStatus getStatusId() {
-<span class="fc" id="L100">		return statusId;</span>
+<span class="fc" id="L110">		return statusId;</span>
 	}
 
 	public void setStatusId(ReimbursementStatus statusId) {
-<span class="fc" id="L104">		this.statusId = statusId;</span>
-<span class="fc" id="L105">	}</span>
+<span class="fc" id="L114">		this.statusId = statusId;</span>
+<span class="fc" id="L115">	}</span>
 
 	public ReimbursementType getTypeId() {
-<span class="fc" id="L108">		return typeId;</span>
+<span class="fc" id="L118">		return typeId;</span>
 	}
 
 	public void setTypeId(ReimbursementType typeId) {
-<span class="fc" id="L112">		this.typeId = typeId;</span>
-<span class="fc" id="L113">	}</span>
+<span class="fc" id="L122">		this.typeId = typeId;</span>
+<span class="fc" id="L123">	}</span>
 
 	public LocalDate getDateSubmitted() {
-<span class="fc" id="L116">		return dateSubmitted;</span>
+<span class="fc" id="L126">		return dateSubmitted;</span>
 	}
 
 	public void setDateSubmitted(LocalDate dateSubmitted) {
-<span class="fc" id="L120">		this.dateSubmitted = dateSubmitted;</span>
-<span class="fc" id="L121">	}</span>
+<span class="fc" id="L130">		this.dateSubmitted = dateSubmitted;</span>
+<span class="fc" id="L131">	}</span>
 
 	public LocalDate getDateResolved() {
-<span class="fc" id="L124">		return dateResolved;</span>
+<span class="fc" id="L134">		return dateResolved;</span>
 	}
 
 	public void setDateResolved(LocalDate dateResolved) {
-<span class="fc" id="L128">		this.dateResolved = dateResolved;</span>
-<span class="fc" id="L129">	}</span>
+<span class="fc" id="L138">		this.dateResolved = dateResolved;</span>
+<span class="fc" id="L139">	}</span>
 	
 	public String getTypeString() {
-<span class="fc" id="L132">		return typeString;</span>
+<span class="fc" id="L142">		return typeString;</span>
 	}
 
 	public void setTypeString(String typeString) {
-<span class="fc" id="L136">		this.typeString = typeString;</span>
-<span class="fc" id="L137">		this.statusId = new ReimbursementStatus(typeString);</span>
-<span class="fc" id="L138">	}</span>
+<span class="fc" id="L146">		this.typeString = typeString;</span>
+<span class="fc" id="L147">		this.statusId = new ReimbursementStatus(typeString);</span>
+<span class="fc" id="L148">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

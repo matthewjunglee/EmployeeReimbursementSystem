@@ -16,16 +16,18 @@ public class ReimbursementServiceTest {
 
 	private ReimbursementDao rd;
 	private ReimbursementService rs;
+	private ReimbursementService rs1;
 	
 	@Before
 	public void setup() {
 		this.rd = Mockito.mock(ReimbursementDao.class);
 		this.rs = new ReimbursementService(this.rd);
+		this.rs1 = new ReimbursementService();
 	}
 	
 	@Test
 	public void createTest() {
-		Reimbursement r = new Reimbursement(0, 0, null, new Timestamp(0), null, null, null, null, null);
+		Reimbursement r = new Reimbursement(0, 0, 0, null, new Timestamp(0), null, null, null, null, null);
 		Mockito.when(rd.create(r)).thenReturn(1);
 		assertEquals(1, rs.create(r));
 	}

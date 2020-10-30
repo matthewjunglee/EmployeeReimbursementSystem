@@ -8,6 +8,7 @@ public class Reimbursement {
 
 	private int id;
 	private int authorId;
+	private int resolverId;
 	private BigDecimal amount;
 	private Timestamp submitted;
 	private Timestamp resolved;
@@ -22,9 +23,11 @@ public class Reimbursement {
 
 	public Reimbursement() {}
 
-	public Reimbursement(int id, int authorId, BigDecimal amount, Timestamp submitted, Timestamp resolved,
+	public Reimbursement(int id, int authorId, int resolverId, BigDecimal amount, Timestamp submitted, Timestamp resolved,
 			String description, byte[] receipt, ReimbursementStatus statusId, ReimbursementType typeId) {
 		this.id = id;
+		this.authorId = authorId;
+		this.resolverId = resolverId;
 		this.amount = amount;
 		this.submitted = submitted;
 		this.resolved = resolved;
@@ -32,7 +35,6 @@ public class Reimbursement {
 		this.receipt = receipt;
 		this.statusId = statusId;
 		this.typeId = typeId;
-		this.authorId = authorId;
 		
 		this.dateSubmitted = this.submitted.toLocalDateTime().toLocalDate();
 		if (this.resolved != null) {
@@ -46,6 +48,22 @@ public class Reimbursement {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
+	}
+
+	public int getResolverId() {
+		return resolverId;
+	}
+
+	public void setResolverId(int resolverId) {
+		this.resolverId = resolverId;
 	}
 
 	public BigDecimal getAmount() {
@@ -86,14 +104,6 @@ public class Reimbursement {
 
 	public void setReceipt(byte[] receipt) {
 		this.receipt = receipt;
-	}
-
-	public int getAuthorId() {
-		return authorId;
-	}
-
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
 	}
 
 	public ReimbursementStatus getStatusId() {

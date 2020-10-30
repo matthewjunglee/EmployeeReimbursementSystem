@@ -2,8 +2,11 @@ function renderTable(reimbursements) {
   for (const reimb of reimbursements) {
     // create table row components
     const tr = document.createElement("tr");
+    tr.setAttribute('style', 'background-color:gainsboro')
+
     const idTd = document.createElement("td");
     const empTd = document.createElement("td");
+    const resolverTd = document.createElement("td");
     const submittedTd = document.createElement("td");
     const resolvedTd = document.createElement("td");
     const statusTd = document.createElement("td");
@@ -14,20 +17,37 @@ function renderTable(reimbursements) {
     // set innerText of the table data
     idTd.innerText = reimb.id;
     empTd.innerText = reimb.authorId;
+    resolverTd.innerText = reimb.resolverId;
     submittedTd.innerText = `${reimb.dateSubmitted.monthValue}-${reimb.dateSubmitted.dayOfMonth}-${reimb.dateSubmitted.year}`;
-    if (reimb.dateResolved != null) {
-      resolvedTd.innerText = `${reimb.dateResolved.monthValue}-${reimb.dateResolved.dayOfMonth}-${reimb.dateResolved.year}`;
-    }
     statusTd.innerText = reimb.statusId.status;
     typeTd.innerText = reimb.typeId.type;
     amountTd.innerText = reimb.amount;
     descriptionTd.innerText = reimb.description;
 
+    // append table data to table row
+    tr.append(idTd, empTd);
+    
+    // reimbursment resolver
+    if (reimb.resolverId !== 0) {
+      tr.append(resolverTd);
+    }
+    tr.append(submittedTd);
+
+    // reimbursement date resolved
+    if (reimb.dateResolved != null) {
+      resolvedTd.innerText = `${reimb.dateResolved.monthValue}-${reimb.dateResolved.dayOfMonth}-${reimb.dateResolved.year}`;
+      if (reimb.statusId.id == 1) { // reimbursement approved
+        tr.setAttribute('class', 'table-success');
+      } else { // reimbursement denied
+        tr.setAttribute('class', 'table-danger');
+      }
+      tr.append(resolvedTd);
+    }
+    // append table data to table row
+    tr.append(statusTd, typeTd, amountTd, descriptionTd);
+
     // set id for table data
     idTd.setAttribute('id', `id${reimb.id}`);
-    
-    // append table data to table row
-    tr.append(idTd, empTd, submittedTd, resolvedTd, statusTd, typeTd, amountTd, descriptionTd);
     
     // Reimbursement is resolved
     if (reimb.statusId.id !== 0) {
@@ -36,8 +56,12 @@ function renderTable(reimbursements) {
       // create approve/deny buttons
       const approveButton = document.createElement("button");
       approveButton.innerText = "Approve";
+      approveButton.setAttribute('class', 'btn btn-outline-success');
+
       const denyButton = document.createElement("button");
       denyButton.innerText = "Deny";
+      denyButton.setAttribute('class', 'btn btn-outline-danger');
+
 
       // add event listener to the approve/deny buttons
       approveButton.addEventListener('click', function() {updateStatus(reimb.id, 'APPROVED')});

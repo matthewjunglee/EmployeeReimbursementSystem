@@ -2,6 +2,8 @@ function renderTable(reimbursements) {
   for (const reimb of reimbursements) {
     // create table row components
     const tr = document.createElement("tr");
+    tr.setAttribute('style', 'background-color:gainsboro')
+    
     const idTd = document.createElement("td");
     const submittedTd = document.createElement("td");
     const resolvedTd = document.createElement("td");
@@ -13,30 +15,41 @@ function renderTable(reimbursements) {
     // set innerText of the table data
     idTd.innerText = reimb.id;
     submittedTd.innerText = `${reimb.dateSubmitted.monthValue}-${reimb.dateSubmitted.dayOfMonth}-${reimb.dateSubmitted.year}`;
-    if (reimb.dateResolved != null) {
-      resolvedTd.innerText = `${reimb.dateResolved.monthValue}-${reimb.dateResolved.dayOfMonth}-${reimb.dateResolved.year}`;
-    }
     statusTd.innerText = reimb.statusId.status;
     typeTd.innerText = reimb.typeId.type;
-    amountTd.innerText = reimb.amount;
+    amountTd.innerText = `$${reimb.amount}`;
     descriptionTd.innerText = reimb.description;
+
+     // append table data to table row
+     tr.append(idTd, submittedTd);
+
+    // reimbursement date resolved
+    if (reimb.dateResolved != null) {
+      resolvedTd.innerText = `${reimb.dateResolved.monthValue}-${reimb.dateResolved.dayOfMonth}-${reimb.dateResolved.year}`;
+      if (reimb.statusId.id == 1) { // reimbursement approved
+        tr.setAttribute('class', 'table-success');
+      } else { // reimbursement denied
+        tr.setAttribute('class', 'table-danger');
+      }
+      tr.append(resolvedTd);
+    }
+
+    // append table data to table row
+    tr.append(statusTd, typeTd, amountTd, descriptionTd);
 
     // set id for table data
     idTd.setAttribute('id', `id${reimb.id}`);
-    amountTd.setAttribute('id', `amount${reimb.id}`);
-    descriptionTd.setAttribute('id', `description${reimb.id}`);
-    typeTd.setAttribute('id', `type${reimb.id}`);
+    // amountTd.setAttribute('id', `amount${reimb.id}`);
+    // descriptionTd.setAttribute('id', `description${reimb.id}`);
+    // typeTd.setAttribute('id', `type${reimb.id}`);
     
-    // append table data to table row
-    tr.append(idTd, submittedTd, resolvedTd, statusTd, typeTd, amountTd, descriptionTd);
-    
-    // Reimbursement is resolved
-    if (reimb.statusId.id !== 0) {
+    if (reimb.statusId.id !== 0) { // Reimbursement is resolved
       document.getElementById("resolvedTableBody").append(tr);
-    } else {
+    } else { // Reimbursement is pending
       // create delete button
       const deleteButton = document.createElement("button");
       deleteButton.innerText = "Delete";
+      deleteButton.setAttribute('class', 'btn btn-outline-danger');
 
       // // create a form
       // const updateForm = document.createElement("form");

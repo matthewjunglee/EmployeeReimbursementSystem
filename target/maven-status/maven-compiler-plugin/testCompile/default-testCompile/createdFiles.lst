@@ -1,4 +1,11 @@
 com\ers\controller\UserControllerTest.class
+com\ers\model\UserRoleTest.class
+com\ers\repo\ReimbursementDaoTest.class
+com\ers\model\ReimbursementStatusTest.class
 com\ers\service\ReimbursementServiceTest.class
+com\ers\model\ReimbursementTest.class
 com\ers\service\UserServiceTest.class
+com\ers\model\ReimbursementTypeTest.class
+com\ers\repo\UserDaoTest.class
+com\ers\servlet\LoginServletTest.class
 com\ers\servlet\RequestForwarderTest.class

@@ -15,11 +15,13 @@ public class UserServiceTest {
 
 	private UserDao ud;
 	private UserService us;
+	private UserService us1;
 	
 	@Before
 	public void setup() {
 		this.ud = Mockito.mock(UserDao.class);
 		this.us = new UserService(this.ud);
+		this.us1 = new UserService();
 	}
 	
 	@Test

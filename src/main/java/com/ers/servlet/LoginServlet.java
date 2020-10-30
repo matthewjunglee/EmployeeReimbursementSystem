@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ers.model.User;
 
-@WebServlet(name = "login", urlPatterns = { "*.page" })
+@WebServlet(name = "login", urlPatterns = {"*.page" })
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		switch (req.getRequestURI()) {
-		case "/ERS/login.page":
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
+		switch (req.getRequestURI().substring(req.getContextPath().length())) {
+		case "/login.page":
 			req.getSession().invalidate();
 			req.getRequestDispatcher("html/login.html").forward(req, resp);
 			break;
-		case "/ERS/employee.page":
+		case "/employee.page":
 			if (req.getSession(false) != null &&
 				((User) req.getSession().getAttribute("user")).getRoleId().getId() == 2) {
 				req.getRequestDispatcher("html/employeePortal.html").forward(req, resp);
@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 				resp.sendRedirect("login.page");
 			}
 			break;
-		case "/ERS/manager.page":
+		case "/manager.page":
 			if (req.getSession(false) != null && 
 				((User) req.getSession(false).getAttribute("user")).getRoleId().getId() == 1) {
 				req.getRequestDispatcher("html/managerPortal.html").forward(req, resp);
@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 				resp.sendRedirect("login.page");
 			}
 			break;
-		case "/ERS/logout.page":
+		case "/logout.page":
 			req.getSession().invalidate();
 			resp.sendRedirect("login.page");
 			break;
@@ -46,7 +46,6 @@ public class LoginServlet extends HttpServlet {
 			req.getRequestDispatcher("html/error.html").forward(req, resp);
 			break;
 		}
-
 	}
 
 	@Override
@@ -58,15 +57,8 @@ public class LoginServlet extends HttpServlet {
 		case "html/managerPortal.html":
 			resp.sendRedirect("manager.page");
 			break;
-		case "createRequest.page":
-			req.getRequestDispatcher("html/reimbursement.html").forward(req, resp);;
-			break;
-		case "/ERS/newAccount.page":
-			req.getRequestDispatcher("html/newAccount.html").forward(req, resp);
-			break;
 		default:
 			resp.sendRedirect("login.page");
 		}
 	}
-
 }

@@ -4,37 +4,37 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ers.model.User;
 import com.ers.model.UserRole;
 import com.ers.util.ConnectionUtil;
 
-<span class="fc" id="L14">public class UserDao implements DaoContract&lt;User, Integer&gt; {</span>
+<span class="fc" id="L13">public class UserDao implements DaoContract&lt;User, Integer&gt; {</span>
 
 	public User login(String username, String password) {
-<span class="fc" id="L17">		User u = new User();</span>
-<span class="fc" id="L18">		String sql = &quot;SELECT * FROM login(?, ?);&quot;;</span>
+<span class="fc" id="L16">		User u = new User();</span>
+<span class="fc" id="L17">		String sql = &quot;SELECT * FROM login(?, ?);&quot;;</span>
 		
-<span class="fc" id="L20">		try (Connection conn = ConnectionUtil.getInstance().getConnection();</span>
-<span class="fc" id="L21">				PreparedStatement ps = conn.prepareStatement(sql)) {</span>
-<span class="fc" id="L22">			ps.setString(1, username);</span>
-<span class="fc" id="L23">			ps.setString(2, password);</span>
+<span class="pc" id="L19">		try (Connection conn = ConnectionUtil.getInstance().getConnection();</span>
+<span class="fc" id="L20">				PreparedStatement ps = conn.prepareStatement(sql)) {</span>
+<span class="fc" id="L21">			ps.setString(1, username);</span>
+<span class="fc" id="L22">			ps.setString(2, password);</span>
 			
-<span class="fc" id="L25">			ResultSet rs = ps.executeQuery();</span>
-<span class="fc bfc" id="L26" title="All 2 branches covered.">			while (rs.next()) {</span>
-<span class="fc" id="L27">				u.setId(rs.getInt(1));</span>
-<span class="fc" id="L28">				u.setUsername(rs.getString(2));</span>
-<span class="fc" id="L29">				u.setFirstName(rs.getString(3));</span>
-<span class="fc" id="L30">				u.setLastName(rs.getString(4));</span>
-<span class="fc" id="L31">				u.setEmail(rs.getString(5));</span>
-<span class="fc" id="L32">				u.setRoleId(new UserRole(rs.getInt(6)));</span>
+<span class="fc" id="L24">			ResultSet rs = ps.executeQuery();</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">			while (rs.next()) {</span>
+<span class="fc" id="L26">				u.setId(rs.getInt(1));</span>
+//				u.setUsername(rs.getString(2));
+<span class="fc" id="L28">				u.setFirstName(rs.getString(3));</span>
+//				u.setLastName(rs.getString(4));
+//				u.setEmail(rs.getString(5));
+<span class="fc" id="L31">				u.setRoleId(new UserRole(rs.getInt(6)));</span>
 			}
-<span class="fc" id="L34">			rs.close();</span>
-<span class="pc bpc" id="L35" title="14 of 16 branches missed.">		} catch (SQLException e) {</span>
-<span class="nc" id="L36">			e.printStackTrace();</span>
-		}
+<span class="fc" id="L33">			rs.close();</span>
+<span class="pc bpc" id="L34" title="12 of 16 branches missed.">		} catch (SQLException e) {</span>
+<span class="nc" id="L35">			u.setId(0);</span>
+//			e.printStackTrace();
+<span class="fc" id="L37">		}</span>
 		
 <span class="fc" id="L39">		return u;</span>
 	}
@@ -42,7 +42,7 @@ import com.ers.util.ConnectionUtil;
 	@Override
 	public int create(User t) {
 <span class="fc" id="L44">		int userId = 0;</span>
-<span class="fc" id="L45">		String sql1 = &quot;INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?, ?, 2);&quot;;</span>
+<span class="fc" id="L45">		String sql1 = &quot;INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);&quot;;</span>
 <span class="fc" id="L46">		String sql2 = &quot;SELECT user_id FROM users WHERE username = ?;&quot;;</span>
 		
 <span class="fc" id="L48">		try (Connection conn = ConnectionUtil.getInstance().getConnection();</span>
@@ -53,7 +53,7 @@ import com.ers.util.ConnectionUtil;
 <span class="fc" id="L53">			ps1.setString(3, t.getFirstName());</span>
 <span class="fc" id="L54">			ps1.setString(4, t.getLastName());</span>
 <span class="fc" id="L55">			ps1.setString(5, t.getEmail());</span>
-//			ps1.setInt(6, t.getRoleId().getId());
+<span class="fc" id="L56">			ps1.setInt(6, t.getRoleId().getId());</span>
 <span class="fc" id="L57">			ps1.executeUpdate();</span>
 			
 <span class="fc" id="L59">			ps2.setString(1, t.getUsername());</span>
@@ -63,7 +63,7 @@ import com.ers.util.ConnectionUtil;
 			}
 <span class="pc bpc" id="L64" title="12 of 24 branches missed.">		} catch (SQLException e) {</span>
 //			e.printStackTrace();
-		}
+<span class="fc" id="L66">		}</span>
 		
 <span class="fc" id="L68">		return userId;</span>
 	}
@@ -71,26 +71,27 @@ import com.ers.util.ConnectionUtil;
 
 	@Override
 	public List&lt;User&gt; findAll() {
-<span class="fc" id="L74">		List&lt;User&gt; users = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L75">		String sql = &quot;SELECT * FROM users;&quot;;</span>
-		
-<span class="fc" id="L77">		try (Connection conn = ConnectionUtil.getInstance().getConnection();</span>
-<span class="fc" id="L78">				PreparedStatement ps = conn.prepareStatement(sql);</span>
-<span class="fc" id="L79">				ResultSet rs = ps.executeQuery()) {</span>
-			
-<span class="fc bfc" id="L81" title="All 2 branches covered.">			while (rs.next()) {</span>
-<span class="fc" id="L82">				users.add(new User(rs.getInt(1), rs.getString(2), null, rs.getString(4),</span>
-<span class="fc" id="L83">							rs.getString(5), rs.getString(6), new UserRole(rs.getInt(7))));</span>
-			}
-<span class="pc bpc" id="L85" title="21 of 24 branches missed.">		} catch (SQLException e) {</span>
-<span class="nc" id="L86">			e.printStackTrace();</span>
-		}
-<span class="fc" id="L88">		return users;</span>
+<span class="fc" id="L74">		return null;</span>
+//		List&lt;User&gt; users = new ArrayList&lt;&gt;();
+//		String sql = &quot;SELECT * FROM users;&quot;;
+//		
+//		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+//				PreparedStatement ps = conn.prepareStatement(sql);
+//				ResultSet rs = ps.executeQuery()) {
+//			
+//			while (rs.next()) {
+//				users.add(new User(rs.getInt(1), rs.getString(2), null, rs.getString(4),
+//							rs.getString(5), rs.getString(6), new UserRole(rs.getInt(7))));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return users;
 	}
 
 	@Override
 	public User findById(Integer i) {
-<span class="fc" id="L93">		return null;</span>
+<span class="fc" id="L94">		return null;</span>
 //		User u = new User();
 //		String sql = &quot;SELECT * FROM users WHERE user_id = ?;&quot;;
 //		
@@ -117,7 +118,7 @@ import com.ers.util.ConnectionUtil;
 
 	@Override
 	public int update(User t) {
-<span class="fc" id="L120">		int updated = 0;</span>
+<span class="fc" id="L121">		int updated = 0;</span>
 //		String sql = &quot;UPDATE users SET username = ?, password = ?, first_name = ?, last_name = ?, email = ?&quot;
 //				+ &quot;WHERE user_id = ?;&quot;;
 //		
@@ -135,27 +136,28 @@ import com.ers.util.ConnectionUtil;
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
-<span class="fc" id="L138">		return updated;</span>
+<span class="fc" id="L139">		return updated;</span>
 	}
 
 	@Override
 	public int delete(Integer i) {
-<span class="fc" id="L143">		int updated = 0;</span>
-<span class="fc" id="L144">		String sql1 = &quot;DELETE FROM reimbursement r WHERE r.author = ?;&quot;;</span>
-<span class="fc" id="L145">		String sql2 = &quot;DELETE FROM users u WHERE u.user_id = ?;&quot;;</span>
-		
-<span class="fc" id="L147">		try (Connection conn = ConnectionUtil.getInstance().getConnection();</span>
-<span class="fc" id="L148">				PreparedStatement ps1 = conn.prepareStatement(sql1);</span>
-<span class="fc" id="L149">				PreparedStatement ps2 = conn.prepareStatement(sql2)) {</span>
-<span class="fc" id="L150">			ps1.setInt(1, i);</span>
-<span class="fc" id="L151">			ps2.setInt(1, i);</span>
-<span class="fc" id="L152">			ps1.executeUpdate();</span>
-<span class="fc" id="L153">			updated = ps2.executeUpdate();</span>
-<span class="pc bpc" id="L154" title="21 of 24 branches missed.">		} catch (SQLException e) {</span>
-<span class="nc" id="L155">			e.printStackTrace();</span>
-		}
-		
-<span class="fc" id="L158">		return updated;</span>
+<span class="fc" id="L144">		return 0;</span>
+//		int updated = 0;
+//		String sql1 = &quot;DELETE FROM reimbursement r WHERE r.author = ?;&quot;;
+//		String sql2 = &quot;DELETE FROM users u WHERE u.user_id = ?;&quot;;
+//		
+//		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+//				PreparedStatement ps1 = conn.prepareStatement(sql1);
+//				PreparedStatement ps2 = conn.prepareStatement(sql2)) {
+//			ps1.setInt(1, i);
+//			ps2.setInt(1, i);
+//			ps1.executeUpdate();
+//			updated = ps2.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return updated;
 	}
 	
 }

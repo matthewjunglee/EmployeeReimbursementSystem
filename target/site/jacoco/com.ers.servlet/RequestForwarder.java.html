@@ -12,43 +12,39 @@ import com.ers.controller.UserController;
 <span class="fc" id="L12">public class RequestForwarder {</span>
 	
 	public String routes(HttpServletRequest req) {
-<span class="pc bpc" id="L15" title="8 of 13 branches missed.">		switch (req.getRequestURI()) {</span>
-		case &quot;/ERS/login.page&quot;:
-<span class="nc" id="L17">			return new UserController().loginUser(req);</span>
-		case &quot;/ERS/createRequest.page&quot;:
-<span class="fc" id="L19">			return &quot;createRequest.page&quot;;</span>
-		case &quot;/ERS/newAccount.page&quot;:
-<span class="fc" id="L21">			return &quot;newAccount.page&quot;;</span>
-		case &quot;/ERS/createAccount.page&quot;:
-<span class="nc" id="L23">			return new UserController().registerUser(req);</span>
+<span class="pc bpc" id="L15" title="2 of 10 branches missed.">		switch (req.getRequestURI().substring(req.getContextPath().length())) {</span>
+		case &quot;/login.page&quot;:
+<span class="fc" id="L17">			return new UserController().loginUser(req);</span>
+		case &quot;/newAccount.page&quot;:
+<span class="fc" id="L19">			return new UserController().registerUser(req);</span>
 		default:
-<span class="fc" id="L25">			return &quot;html/login.html&quot;;</span>
+<span class="fc" id="L21">			return &quot;&quot;;</span>
 		}
 	}
 	
 	public void data(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-<span class="nc bnc" id="L30" title="All 2 branches missed.">		if (req.getSession(false) == null) {</span>
-<span class="nc" id="L31">			resp.sendRedirect(&quot;login.page&quot;);</span>
-<span class="nc" id="L32">			return;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">		if (req.getSession(false) == null) {</span>
+<span class="fc" id="L27">			resp.sendRedirect(&quot;login.page&quot;);</span>
+<span class="fc" id="L28">			return;</span>
 		}
 		
-<span class="nc bnc" id="L35" title="All 13 branches missed.">		switch (req.getRequestURI()) {</span>
-		case &quot;/ERS/reimbursements.json&quot;:
-<span class="nc" id="L37">			new ReimbursementController().sendAllReimbursements(req, resp);</span>
-<span class="nc" id="L38">			break;</span>
-		case &quot;/ERS/delete.json&quot;:
-<span class="nc" id="L40">			new ReimbursementController().deleteReimbursement(req);</span>
-<span class="nc" id="L41">			break;</span>
-		case &quot;/ERS/create.json&quot;:
-<span class="nc" id="L43">			new ReimbursementController().createRequest(req, resp);</span>
-<span class="nc" id="L44">			break;</span>
-		case &quot;/ERS/approveDeny.json&quot;:
-<span class="nc" id="L46">			new ReimbursementController().approveDeny(req, resp);</span>
-<span class="nc" id="L47">			break;</span>
+<span class="pc bpc" id="L31" title="16 of 18 branches missed.">		switch (req.getRequestURI().substring(req.getContextPath().length())) {</span>
+		case &quot;/reimbursements.json&quot;:
+<span class="nc" id="L33">			new ReimbursementController().sendAllReimbursements(req, resp);</span>
+<span class="nc" id="L34">			break;</span>
+		case &quot;/delete.json&quot;:
+<span class="nc" id="L36">			new ReimbursementController().deleteReimbursement(req);</span>
+<span class="nc" id="L37">			break;</span>
+		case &quot;/create.json&quot;:
+<span class="nc" id="L39">			new ReimbursementController().createRequest(req, resp);</span>
+<span class="nc" id="L40">			break;</span>
+		case &quot;/approveDeny.json&quot;:
+<span class="nc" id="L42">			new ReimbursementController().approveDeny(req, resp);</span>
+<span class="nc" id="L43">			break;</span>
 		default:
-<span class="nc" id="L49">			resp.sendRedirect(&quot;login.page&quot;);</span>
+<span class="fc" id="L45">			resp.sendRedirect(&quot;login.page&quot;);</span>
 			break;
 		}
-<span class="nc" id="L52">	}</span>
+<span class="fc" id="L48">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -48,6 +48,10 @@ public class ReimbursementController {
 			reimbs = reimbs.stream()
 							.filter(r -> r.getAuthorId() == u.getId())
 							.collect(Collectors.toList());
+			
+			for (Reimbursement r : reimbs) {
+				r.setResolverId(0);
+			}
 		}
 		
 		try {
@@ -62,7 +66,10 @@ public class ReimbursementController {
 		try {
 			Reimbursement r = new ObjectMapper().readValue(req.getInputStream(), Reimbursement.class);
 			r.setResolved(new Timestamp(System.currentTimeMillis()));
+			r.setResolverId(((User) req.getSession(false).getAttribute("user")).getId());
+			
 			rs.approveDeny(r);
+			
 			List<Reimbursement> reimbs = rs.findAll();
 			resp.getWriter().println(new ObjectMapper().writeValueAsString(reimbs));
 		} catch (IOException e) {

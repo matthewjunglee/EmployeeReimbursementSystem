@@ -6,12 +6,12 @@ import java.sql.SQLException;
 
 public class ConnectionUtil {
 
+<span class="fc" id="L9">	private final String url = &quot;jdbc:postgresql://revature.cd0uyuacqqon.us-west-1.rds.amazonaws.com:5432/postgres?currentSchema=ers_test&quot;;</span>
+<span class="fc" id="L10">	private final String username = &quot;ers_user&quot;;</span>
+<span class="fc" id="L11">	private final String password = &quot;project1&quot;;</span>
 //	private final String url = System.getenv(&quot;URL&quot;);
 //	private final String username = System.getenv(&quot;USERNAME&quot;);
 //	private final String password = System.getenv(&quot;PASSWORD&quot;);
-<span class="fc" id="L12">	private final String url = &quot;jdbc:postgresql://revature.cd0uyuacqqon.us-west-1.rds.amazonaws.com:5432/postgres?currentSchema=ers_test&quot;;</span>
-<span class="fc" id="L13">	private final String username = &quot;ers_user&quot;;</span>
-<span class="fc" id="L14">	private final String password = &quot;project1&quot;;</span>
 	
 	private static ConnectionUtil instance;
 	
@@ -20,9 +20,9 @@ public class ConnectionUtil {
 	{
 		try {
 <span class="fc" id="L22">			Class.forName(&quot;org.postgresql.Driver&quot;);</span>
-<span class="pc" id="L23">		} catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L23">		} catch (ClassNotFoundException e) {</span>
 <span class="nc" id="L24">			e.printStackTrace();</span>
-		}
+<span class="fc" id="L25">		}</span>
 	}
 	
 	public static ConnectionUtil getInstance() {

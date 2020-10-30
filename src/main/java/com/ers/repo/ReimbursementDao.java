@@ -30,7 +30,7 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 			updated = ps.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return updated;
 	}
@@ -44,12 +44,12 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
-				reimbs.add(new Reimbursement(rs.getInt(1), rs.getInt(2), rs.getBigDecimal(3),
-						rs.getTimestamp(4), rs.getTimestamp(5), rs.getString(6), rs.getBytes(7),
-						new ReimbursementStatus(rs.getInt(8)), new ReimbursementType(rs.getInt(9))));
+				reimbs.add(new Reimbursement(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBigDecimal(4),
+						rs.getTimestamp(5), rs.getTimestamp(6), rs.getString(7), rs.getBytes(8),
+						new ReimbursementStatus(rs.getInt(9)), new ReimbursementType(rs.getInt(10))));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 		return reimbs;
@@ -134,7 +134,7 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 			ps.setInt(1, i);
 			updated = ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 		return updated;
@@ -142,18 +142,19 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 	
 	public int approveDeny(Reimbursement r) {
 		int updated = 0;
-		String sql = "UPDATE reimbursement SET status_id = ?, resolved = ? WHERE id = ?;";
+		String sql = "UPDATE reimbursement SET status_id = ?, resolved = ?, resolver = ? WHERE id = ?;";
 		
 		try (Connection conn = ConnectionUtil.getInstance().getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, r.getStatusId().getId());
 			ps.setTimestamp(2, r.getResolved());
-			ps.setInt(3, r.getId());
+			ps.setInt(3, r.getResolverId());
+			ps.setInt(4, r.getId());
 
 			updated = ps.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 		return updated;
