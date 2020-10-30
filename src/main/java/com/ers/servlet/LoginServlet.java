@@ -60,5 +60,5 @@ public class LoginServlet extends HttpServlet {
 		default:
 			resp.sendRedirect("login.page");
 		}
-	}
+	} 
 }
