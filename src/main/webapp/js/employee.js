@@ -85,7 +85,7 @@ async function asyncFetch(url, expression) {
   expression(json);
 }
 
-asyncFetch("http://54.241.47.22:8081/ERS-0.0.1-SNAPSHOT/reimbursements.json", renderTable);
+asyncFetch("http://localhost:8080/ERS/reimbursements.json", renderTable);
 
 // async function updateReimbursement(id) {
 //   // console.log('in function');
@@ -118,18 +118,18 @@ async function deleteReimburesment(id) {
     id: document.getElementById(`id${id}`).innerText
   };
   
-  await fetch("http://54.241.47.22:8081/ERS-0.0.1-SNAPSHOT/delete.json", {
+  await fetch("http://localhost:8080/ERS/delete.json", {
     method: "POST",
     body: JSON.stringify(reimbursement)
   });
   document.getElementById('pendingTableBody').innerHTML = '';
   document.getElementById('resolvedTableBody').innerHTML = '';
-  asyncFetch("http://54.241.47.22:8081/ERS-0.0.1-SNAPSHOT/reimbursements.json", renderTable);
+  asyncFetch("http://localhost:8080/ERS/reimbursements.json", renderTable);
 }
 
 // create a new request
 async function createRequest() {
-  await fetch("http://54.241.47.22:8081/ERS-0.0.1-SNAPSHOT/create.json", {
+  await fetch("http://localhost:8080/ERS/create.json", {
     method:"POST"
   });
 }

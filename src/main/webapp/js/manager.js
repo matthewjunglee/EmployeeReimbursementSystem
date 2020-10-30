@@ -79,7 +79,7 @@ function renderTable(reimbursements) {
   }
 }
 
-asyncFetch("http://54.241.47.22:8081/ERS-0.0.1-SNAPSHOT/reimbursements.json", renderTable);
+asyncFetch("http://localhost:8080/ERS/reimbursements.json", renderTable);
 
 // fetch resource
 async function asyncFetch(url, expression) {
@@ -97,11 +97,11 @@ async function updateStatus(id, update) {
     typeString: update
   };
 
-  await fetch("http://54.241.47.22:8081/ERS-0.0.1-SNAPSHOT/approveDeny.json", {
+  await fetch("http://localhost:8080/ERS/approveDeny.json", {
     method: "POST",
     body: JSON.stringify(reimbursement)
   });
   document.getElementById('pendingTableBody').innerHTML = '';
   document.getElementById('resolvedTableBody').innerHTML = '';
-  asyncFetch("http://54.241.47.22:8081/ERS-0.0.1-SNAPSHOT/reimbursements.json", renderTable);
+  asyncFetch("http://localhost:8080/ERS/reimbursements.json", renderTable);
 }
