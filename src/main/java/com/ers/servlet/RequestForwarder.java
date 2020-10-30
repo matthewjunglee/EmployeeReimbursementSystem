@@ -13,9 +13,9 @@ public class RequestForwarder {
 	
 	public String routes(HttpServletRequest req) {
 		switch (req.getRequestURI()) {
-		case "/ERS/login.page":
+		case "/ERS-0.0.1-SNAPSHOT/login.page":
 			return new UserController().loginUser(req);
-		case "/ERS/createAccount.page":
+		case "/ERS-0.0.1-SNAPSHOT/createAccount.page":
 			return new UserController().registerUser(req);
 		default:
 			return "";
@@ -29,16 +29,16 @@ public class RequestForwarder {
 		}
 		
 		switch (req.getRequestURI()) {
-		case "/ERS/reimbursements.json":
+		case "/ERS-0.0.1-SNAPSHOT/reimbursements.json":
 			new ReimbursementController().sendAllReimbursements(req, resp);
 			break;
-		case "/ERS/delete.json":
+		case "/ERS-0.0.1-SNAPSHOT/delete.json":
 			new ReimbursementController().deleteReimbursement(req);
 			break;
-		case "/ERS/create.json":
+		case "/ERS-0.0.1-SNAPSHOT/create.json":
 			new ReimbursementController().createRequest(req, resp);
 			break;
-		case "/ERS/approveDeny.json":
+		case "/ERS-0.0.1-SNAPSHOT/approveDeny.json":
 			new ReimbursementController().approveDeny(req, resp);
 			break;
 		default:
