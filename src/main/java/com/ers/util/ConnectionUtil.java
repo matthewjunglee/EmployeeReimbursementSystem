@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class ConnectionUtil {
 
-	private final String url = "jdbc:postgresql://revature.cd0uyuacqqon.us-west-1.rds.amazonaws.com:5432/postgres?currentSchema=ers";
-	private final String username = "ers_user";
-	private final String password = "project1";
+	private final String url = System.getenv("URL");
+	private final String username = System.getenv("USERNAME");
+	private final String password = System.getenv("PASSWORD");
 	
 	private static ConnectionUtil instance;
 	
