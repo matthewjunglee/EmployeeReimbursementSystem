@@ -24,6 +24,7 @@ public class UserController {
 
 		User u = us.login(username, password);
 		
+		// valid user login
 		if (u.getId() != 0) {
 			req.getSession().invalidate();
 			req.getSession().setAttribute("user", u);
@@ -33,8 +34,9 @@ public class UserController {
 			} else {
 				return "html/employeePortal.html";
 			}
+		} else {
+			return "";
 		}
-		return "";
 	}
 
 	public String registerUser(HttpServletRequest req) {
@@ -47,6 +49,7 @@ public class UserController {
 		u.setRoleId(new UserRole(2));
 		u.setId(us.create(u));
 		
+		// invalid user information, username already exists
 		if (u.getId() == 0) {
 			return "";
 		}

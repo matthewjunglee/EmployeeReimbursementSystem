@@ -44,6 +44,8 @@ public class ReimbursementController {
 		User u = (User) req.getSession(false).getAttribute("user");
 		
 		List<Reimbursement> reimbs = rs.findAll();
+		
+		// filter reimbursements if user is an employee
 		if (u.getRoleId().getId() == 2) {
 			reimbs = reimbs.stream()
 							.filter(r -> r.getAuthorId() == u.getId())

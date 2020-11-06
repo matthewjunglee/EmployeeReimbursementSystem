@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Connect to the database
+ */
 public class ConnectionUtil {
 
 	private final String url = System.getenv("URL");

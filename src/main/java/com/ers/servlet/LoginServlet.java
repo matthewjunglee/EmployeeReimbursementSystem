@@ -23,6 +23,7 @@ public class LoginServlet extends HttpServlet {
 			req.getRequestDispatcher("html/login.html").forward(req, resp);
 			break;
 		case "/ERS-0.0.1-SNAPSHOT/employee.page":
+			// user must be logged in as employee
 			if (req.getSession(false) != null &&
 				((User) req.getSession().getAttribute("user")).getRoleId().getId() == 2) {
 				req.getRequestDispatcher("html/employeePortal.html").forward(req, resp);
@@ -31,6 +32,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			break;
 		case "/ERS-0.0.1-SNAPSHOT/manager.page":
+			// user must be logged in as manager
 			if (req.getSession(false) != null && 
 				((User) req.getSession(false).getAttribute("user")).getRoleId().getId() == 1) {
 				req.getRequestDispatcher("html/managerPortal.html").forward(req, resp);

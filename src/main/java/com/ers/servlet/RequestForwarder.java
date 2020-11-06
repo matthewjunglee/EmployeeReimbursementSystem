@@ -9,8 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.ers.controller.ReimbursementController;
 import com.ers.controller.UserController;
 
+/**
+ * Forward request based on user input
+ */
 public class RequestForwarder {
 	
+	/**
+	 * Receives requests from LoginServlet
+	 * @param req httprequest
+	 * @return new route
+	 */
 	public String routes(HttpServletRequest req) {
 		switch (req.getRequestURI()) {
 		case "/ERS-0.0.1-SNAPSHOT/login.page":
@@ -22,6 +30,13 @@ public class RequestForwarder {
 		}
 	}
 	
+	/**
+	 * Receives requests from the DataServlet
+	 * @param req 
+	 * @param resp 
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void data(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		if (req.getSession(false) == null) {
 			resp.sendRedirect("login.page");
