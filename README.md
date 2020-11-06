@@ -1,4 +1,4 @@
-# EMPLOYEE REIMBURSEMENT SYSTEM
+# Employee Reimbursement System
 
 ## Project Description
 
