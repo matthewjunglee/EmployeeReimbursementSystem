@@ -15,7 +15,7 @@ are authorized to approve and deny requests for expense reimbursement.
 * JDBC - version 2.0
 * Servlets - version 3.0
 * PostgreSQL
-* HTML/CSS
+* HTML/CSS/CSS Bootstrap
 * JavaScript
 * AJAX
 * Agile-Scrum
@@ -47,19 +47,19 @@ To-do list:
 
 #### Home Page
 * This is the first page you see
-![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/images/LandingPage.JPG)
+![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/blob/master/images/LandingPage.JPG?raw=true)
 
 #### Create a new account
 * If you do not have an employee account, you can press the "Create Account" button
-![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/images/CreateAccountModalForm.JPG)
+![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/blob/master/images/CreateAccountModalForm.JPG?raw=true)
 
 #### Employee Portal
 * As an employee, you can create a reimbursement request, delete a request and view your pending / resolved requests
-![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/images/CreateRequestModalForm.JPG)
+![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/blob/master/images/CreateRequestModalForm.JPG?raw=true)
 
-![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/images/EmployeePortal.JPG)
+![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/blob/master/images/EmployeePortal.JPG?raw=true)
 
 #### Manager Portal
 * As a manager, you can accept/deny requests, and view all pending / resolved requests
-![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/images/ManagerPortal.JPG)
+![Home Page](https://github.com/matthewjunglee/EmployeeReimbursementSystem/blob/master/images/ManagerPortal.JPG?raw=true)
 
