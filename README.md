@@ -7,8 +7,6 @@ All employees in the company can login and submit requests for reimbursement and
 Finance managers can log in and view all reimbursement requests and past history for all employees in the company. Finance managers 
 are authorized to approve and deny requests for expense reimbursement.
 
-###### Website URL: http://54.241.47.22:8081/ERS-0.0.1-SNAPSHOT/
-
 ## Technologies Used
 
 * Java - version 1.0
