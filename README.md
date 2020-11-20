@@ -9,9 +9,9 @@ are authorized to approve and deny requests for expense reimbursement.
 
 ## Technologies Used
 
-* Java - version 1.0
-* JDBC - version 2.0
-* Servlets - version 3.0
+* Java
+* JDBC
+* Servlets
 * PostgreSQL
 * HTML/CSS/CSS Bootstrap
 * JavaScript
